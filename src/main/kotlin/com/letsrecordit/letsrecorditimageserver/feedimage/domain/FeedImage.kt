@@ -1,5 +1,6 @@
 package com.letsrecordit.letsrecorditimageserver.feedimage.domain
 
+import com.letsrecordit.letsrecorditimageserver.global.domain.BaseTime
 import jakarta.persistence.Entity
 import jakarta.persistence.*
 import org.hibernate.annotations.ColumnDefault
@@ -20,5 +21,5 @@ class FeedImage(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "feed_image_id")
     var id: Long? = null,
-) {
+) : BaseTime() {
 }
