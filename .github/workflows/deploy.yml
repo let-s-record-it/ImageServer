@@ -1,6 +1,9 @@
 name: LetsRecordIt Server Deploy with Gradle
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
@@ -32,7 +35,7 @@ jobs:
 
       - name: Docker build
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }} .
+          docker build --no-cache -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }} .
 
       - name: Docker Hub Login
         uses: docker/login-action@v2
@@ -51,5 +54,6 @@ jobs:
           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
           envs: GITHUB_SHA
           script: |
-            sudo docker-compose down
+            docker ps -q -f letsrecordit-image-server && docker stop letsrecordit-image-server && docker rm letsrecordit-image-server
+            docker images -q ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest && docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
             sudo docker-compose up -d
