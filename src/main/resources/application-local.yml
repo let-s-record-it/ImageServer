@@ -28,3 +28,12 @@ rabbitmq:
   queue.name: sample.queue
   exchange.name: sample.exchange
   routing.key: sample.key
+
+management:
+  endpoint:
+    prometheus:
+      access: read_only
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
