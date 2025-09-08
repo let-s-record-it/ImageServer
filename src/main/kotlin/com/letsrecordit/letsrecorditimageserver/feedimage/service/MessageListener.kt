@@ -10,7 +10,7 @@ class MessageListener(
     private val feedImageUploader: FeedImageUploader,
 ) {
 
-    @RabbitListener(queues = ["feedimage.queue"])
+    @RabbitListener(queues = ["\${rabbitmq.queue.name}"])
     fun listen(message: Message<List<FeedImageMessage>>) {
         feedImageUploader.uploadImages(message.content)
     }
