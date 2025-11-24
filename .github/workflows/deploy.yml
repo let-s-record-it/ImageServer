@@ -54,6 +54,6 @@ jobs:
           key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
           envs: GITHUB_SHA
           script: |
-            docker ps -q -f letsrecordit-image-server && docker stop letsrecordit-image-server && docker rm letsrecordit-image-server
-            docker images -q ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest && docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
-            sudo docker-compose up -d
+            sudo docker ps -q -f name=letsrecordit-image-server && sudo docker stop letsrecordit-image-server && sudo docker rm letsrecordit-image-server
+            sudo docker images -q ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest && sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
+            sudo docker compose up -d
